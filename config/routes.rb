@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :kinds
   resources :contacts
   # If we don't want rails to create all the urls of a resource
   # We can specify the urls we want as below
