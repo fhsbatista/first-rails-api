@@ -3,6 +3,7 @@ namespace :dev do
   task setup: :environment do
     create_kinds
     create_contacts
+    create_phones_and_on_contacts
   end
 
   def create_kinds
@@ -30,5 +31,17 @@ namespace :dev do
       )
     end
     puts "Contatos cadastrados com sucesso"
+  end
+
+  def create_phones_and_on_contacts
+    puts "Cadastrando os telefones..."
+    Contact.all.each do |contact|
+      Random.rand(5).times do |i|
+        phone = Phone.create!(number: Faker::PhoneNumber.cell_phone, contact: contact)
+        contact.phones << phone
+        contact.save!
+      end
+    end
+    puts "Telefones cadastrados com sucesso"
   end
 end
