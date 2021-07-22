@@ -2,11 +2,10 @@ class Contact < ApplicationRecord
   belongs_to :kind
   has_many :phones
 
-  def birthdate
-    I18n.l(self[:birthdate])
-  end
-
   def as_json(options = {})
-    super(options).merge ({ greeting: I18n.t(:hello) })
+    formatted_birthdate = I18n.l(self.birthdate)
+    json = super(options)
+    json[:birthdate] = formatted_birthdate
+    json
   end
 end
